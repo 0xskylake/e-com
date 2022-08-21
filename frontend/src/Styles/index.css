@@ -1,0 +1,9 @@
+main{
+  min-height: calc(100vh - 136px);
+}
+.rating span{
+  margin: 0.1rem;
+}
+h3{
+  padding-top: 1rem;
+}
