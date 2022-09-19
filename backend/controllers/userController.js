@@ -72,6 +72,43 @@ const getUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
+// @Desc get User by Id
+// @Route GET /api/users/:id
+// @Access Privet/admin
+const getUserbyId = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id).select('-password');
+
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(401);
+    throw new Error("Invalid user");
+  }
+});
+
+// @Desc get all Users
+// @Route POST /api/users
+// @Access privet as admin
+const getUsers = asyncHandler(async (req, res) => {
+  const users = await User.find({});
+  res.json(users);
+});
+
+// @Desc delete
+// @Route DELETE /api/users/:id
+// @Access privet as admin
+const deleteUsers = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (user) {
+    user.remove();
+    res.json({ message: "User Removed" });
+  } else {
+    res.status(401);
+    throw new Error("user not found");
+  }
+  res.json(users);
+});
+
 // @Desc get User Profile
 // @Route POST /api/users/profile
 // @Access Public
@@ -87,7 +124,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     }
 
     const updatedUser = await user.save();
-    
+
     res.json({
       _id: updatedUser._id,
       name: updatedUser.name,
@@ -95,10 +132,44 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       isAdmin: updatedUser.isAdmin,
       token: generateToken(updatedUser._id),
     });
-
   } else {
     res.status(401);
     throw new Error("Invalid user");
   }
 });
-export { authUser, getUserProfile, registerUser, updateUserProfile };
+
+// @Desc get User
+// @Route POST /api/users?:id
+// @Access privet as admin
+const updateUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.isAdmin = req.body.isAdmin;
+
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin
+    });
+  } else {
+    res.status(401);
+    throw new Error("Invalid user");
+  }
+});
+
+export {
+  authUser,
+  getUserProfile,
+  registerUser,
+  updateUserProfile,
+  getUsers,
+  deleteUsers,
+  updateUser,
+  getUserbyId,
+};

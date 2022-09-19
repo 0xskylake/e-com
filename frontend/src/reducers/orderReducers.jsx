@@ -9,10 +9,10 @@ import {
   ORDER_PAY_SUCCESS,
   ORDER_PAY_FAIL,
   ORDER_PAY_RESET,
-  MY_ORDER_DETAILS_REQUEST,
-  MY_ORDER_DETAILS_SUCCESS,
-  MY_ORDER_DETAILS_FAIL,
-  MY_ORDER_DETAILS_RESET
+  ORDER_MY_LIST_DETAILS_REQUEST,
+  ORDER_MY_LIST_DETAILS_SUCCESS,
+  ORDER_MY_LIST_DETAILS_FAIL,
+  ORDER_MY_LIST_DETAILS_RESET
 } from "../constants/orderConstants";
 
 export const orderCreateReducer = (state = {}, action) => {
@@ -43,13 +43,13 @@ export const orderDetailsReducer = (state = { loading: true, orderItems: [], shi
 
 export const myOrderDetailsReducer = (state = { loading: true, myOrders: [] }, action) => {
   switch (action.type) {
-    case MY_ORDER_DETAILS_REQUEST:
+    case ORDER_MY_LIST_DETAILS_REQUEST:
       return { loading: true };
-    case MY_ORDER_DETAILS_SUCCESS:
+    case ORDER_MY_LIST_DETAILS_SUCCESS:
       return { loading: false, myOrders: action.payload };
-    case MY_ORDER_DETAILS_FAIL:
+    case ORDER_MY_LIST_DETAILS_FAIL:
       return { loading: false, error: action.payload };
-    case MY_ORDER_DETAILS_RESET:
+    case ORDER_MY_LIST_DETAILS_RESET:
       return { myOrders: [] };
     default:
       return state;

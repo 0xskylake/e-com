@@ -13,22 +13,15 @@ app.use(express.json());
 env.config();
 connectDB();
 
-app.use((req, res, next) => {
-  console.log(req.originalUrl);
-  next();
-});
+app.use((req, res, next) => { console.log(req.originalUrl); next(); });
 
-app.get("/", (req, res) => {
-  res.send("eCom is running");
-});
+app.get("/", (req, res) => { res.send("eCom is running"); });
 
 app.use("/api/products", productRoute);
 app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
 
-app.get("/api/config/paypal", (req, res) =>
-  res.send(process.env.PAYPAL_CLIENT_ID)
-);
+app.get("/api/config/paypal", (req, res) => res.send(process.env.PAYPAL_CLIENT_ID) );
 
 // middleware
 app.use(notFound);
@@ -36,7 +29,4 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(
-  PORT,
-  console.log(`server running in ${process.env.NODE_ENV} on ${PORT}`)
-);
+app.listen( PORT, console.log(`server running in ${process.env.NODE_ENV} on ${PORT}`) );
