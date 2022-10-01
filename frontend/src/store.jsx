@@ -4,7 +4,7 @@ import thunk from "redux-thunk";
 
 // Reducers
 import { cartReducer } from "./reducers/cartReducers";
-import { myOrderDetailsReducer, orderCreateReducer, orderDetailsReducer, orderPayReducer } from "./reducers/orderReducers";
+import { myOrderDetailsReducer, orderCreateReducer, orderDetailsReducer, orderPayReducer, orderListReducer, orderDeliverReducer } from "./reducers/orderReducers";
 import { productCreateReducer, productDeleteReducer, productDetailsReducer, productListReducer, productReviewCreateReducer, productTopRatedReducer, productUpdateReducer } from "./reducers/productReducers";
 import { userDeleteReducer, userDetailsReducer, userListReducer, userLoginReducer, userRegisterReducer, userUpdateProfileReducer, userUpdateReducer } from "./reducers/userReducers";
 
@@ -26,7 +26,6 @@ const reducer = combineReducers({
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
   userUpdateProfile: userUpdateProfileReducer,
-  userUpdateProfile: userUpdateProfileReducer,
   userList: userListReducer,
   userDelete: userDeleteReducer,
   userUpdate: userUpdateReducer,
@@ -36,6 +35,8 @@ const reducer = combineReducers({
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
+  orderList: orderListReducer,
+  orderDeliver: orderDeliverReducer,
   myOrderDetails: myOrderDetailsReducer,
 });
 

@@ -1,24 +1,41 @@
 import React, { useEffect } from "react";
-import { Row, Col } from "react-bootstrap";
-import Product from "../components/Product";
+import { Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../actions/productAction";
+import Product from "../components/Product";
 
-import Message from "../components/Message";
 import Loader from "../components/Loader";
+import Message from "../components/Message";
+import Paginate from "../components/Paginate";
+import ProductCarousel from "../components/ProductCarousel";
+
+import { useParams } from "react-router-dom";
+import Meta from "../components/Meta";
+import { Link } from "react-router-dom";
 
 function HomeScreen() {
   const dispatch = useDispatch();
-  const { loading, products, error } = useSelector(
+
+  const { keyword, pageNumber } = useParams();
+
+  const { loading, products, error, page, pages } = useSelector(
     (state) => state.productList
   );
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
 
   useEffect(() => {
-    dispatch(listProducts());
-  }, [dispatch]);
+    dispatch(listProducts(keyword, pageNumber));
+  }, [dispatch, keyword, pageNumber]);
 
   return (
+
     <>
+      <Meta />
+
+      {!keyword ? <ProductCarousel /> : (<Link className="btn btn-light my-3" to="/">
+        Go Back
+      </Link>)}
       <h1>Latest Products</h1>
       {loading ? (
         <Loader />
@@ -31,6 +48,7 @@ function HomeScreen() {
               <Product product={product} />
             </Col>
           ))}
+          <Paginate pages={pages} page={page} isAdmin={false} keyword={keyword ? keyword : ''} />
         </Row>
       )}
     </>

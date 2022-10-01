@@ -9,8 +9,7 @@ import FormContainer from "../components/FormContainer";
 function ShippingScreen() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart);
-  const { shippingAddress } = cart;
+  const { shippingAddress } = useSelector((state) => state.cart);
 
   const [address, setAddress] = useState(shippingAddress?.address);
   const [city, setCity] = useState(shippingAddress?.city);

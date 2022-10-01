@@ -3,6 +3,9 @@ import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { logOut } from "../actions/userAction";
+import SearchBox from "./SearchBox";
+
+
 const Header = () => {
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
@@ -24,7 +27,7 @@ const Header = () => {
       >
         <Container>
           <LinkContainer to="/">
-            <Navbar.Brand>{"{e-com}"}</Navbar.Brand>
+            <Navbar.Brand>e-com</Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
@@ -32,6 +35,7 @@ const Header = () => {
               {/* <Nav.Link href="#features">Features</Nav.Link>
               <Nav.Link href="#pricing">Pricing</Nav.Link> */}
             </Nav>
+            <SearchBox/>
             <Nav className="ml-auto">
               <LinkContainer to="/cart">
                 <Nav.Link>
